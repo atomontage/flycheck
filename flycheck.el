@@ -10,7 +10,7 @@
 ;; URL: http://www.flycheck.org
 ;; Keywords: convenience, languages, tools
 ;; Version: 32-cvs
-;; Package-Requires: ((dash "2.12.1") (pkg-info "0.4") (let-alist "1.0.4") (seq "1.11") (emacs "24.3"))
+;; Package-Requires: ((dash "2.12.1") (let-alist "1.0.4") (seq "1.11") (emacs "24.3"))
 
 ;; This file is not part of GNU Emacs.
 
@@ -89,9 +89,6 @@
 (defvar markdown-hide-markup)                     ;
 (defvar markdown-fontify-code-block-default-mode) ; For rust-error-explainer
 (defvar markdown-fontify-code-blocks-natively)    ;
-
-;; Tell the byte compiler about autoloaded functions from packages
-(declare-function pkg-info-version-info "pkg-info" (package))
 
 
 ;;; Compatibility
@@ -1271,6 +1268,7 @@ Only has effect when variable `global-flycheck-mode' is non-nil."
 
 
 ;;; Version information, manual and loading of Flycheck
+(defvar flycheck--version "32-cvs")
 (defun flycheck-version (&optional show-version)
   "Get the Flycheck version as string.
 
@@ -1284,7 +1282,7 @@ If the version number could not be determined, signal an error,
 if called interactively, or if SHOW-VERSION is non-nil, otherwise
 just return nil."
   (interactive (list t))
-  (let ((version (pkg-info-version-info 'flycheck)))
+  (let ((version flycheck--version))
     (when show-version
       (message "Flycheck version: %s" version))
     version))
